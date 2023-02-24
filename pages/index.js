@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { Sidebar } from "@/components";
 
 export default function Home() {
   return (
@@ -11,7 +12,9 @@ export default function Home() {
       </Head>
       <main className="min-h-[100vh] flex flex-col">
         <div className="bg-[#1b9447] h-[100px] w-full absolute top-0 left-0 " />
-        <div className="min-h-[calc(100vh-40px)] bg-[rgb(230,227,227)] z-50 mt-[20px] mx-4 md:mx-8"></div>
+        <div className="min-h-[calc(100vh-40px)] bg-[rgb(227,230,230)] z-50 mt-[20px] mx-4 md:mx-8 flex">
+          <Sidebar />
+        </div>
         <div className="bg-[rgb(244,241,241)] h-[100px] w-full absolute bottom-0 left-0 " />
       </main>
     </>
