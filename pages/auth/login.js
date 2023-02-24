@@ -1,18 +1,25 @@
-import { auth } from "@/firebase/config";
+import { auth, db } from "@/firebase/config";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const Login = () => {
   const router = useRouter();
   const login = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).then((result) => {
+    signInWithPopup(auth, provider).then(async (result) => {
       const user = result.user;
+      await setDoc(doc(db, "users", user?.email), {
+        name: user?.displayName,
+        userImage: user?.photoURL,
+        id: user?.uid,
+      });
       axios.post("/api/login");
       router.push("/");
+      console.log(user);
     });
   };
 

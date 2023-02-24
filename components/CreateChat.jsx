@@ -2,6 +2,8 @@ import { auth, db } from "@/firebase/config";
 import {
   addDoc,
   collection,
+  doc,
+  getDoc,
   getDocs,
   serverTimestamp,
 } from "firebase/firestore";
@@ -34,9 +36,19 @@ const CreateChat = () => {
       if (!emailExists) {
         setEmail("");
         setOpenEmail(false);
+        const getFriendProfile = await getDoc(doc(db, "users", email));
+        let friendProfile;
+        if (getFriendProfile.data()) {
+          console.log(getFriendProfile.data());
+          friendProfile = getFriendProfile.data().userImage;
+        } else {
+          friendProfile = "/image/user.jpg";
+        }
+
         await addDoc(collection(db, "chats"), {
           users: [user, email],
           timestamp: serverTimestamp(),
+          FriendImage: friendProfile,
         });
       }
     }

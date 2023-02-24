@@ -53,3 +53,16 @@ rightText {
   border-top: 10px solid #69ee8b;
   clear: both;
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-button {
+  background-color: #a6a8a7;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #97ea91;
+}

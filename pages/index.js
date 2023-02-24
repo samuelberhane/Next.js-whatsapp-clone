@@ -1,9 +1,49 @@
 import Head from "next/head";
 import { Chat, Messages, Sidebar } from "@/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "@/firebase/config";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 
 export default function Home() {
   const [currentChat, setCurrentChat] = useState(1);
+  const [user, setUser] = useState(null);
+  const [userChat, setUserChat] = useState([]);
+
+  //   fetch users chat
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        const q = query(
+          collection(db, "chats"),
+          where("users", "array-contains", user.email),
+          orderBy("timestamp", "desc")
+        );
+        let chats = [];
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+          snapshot.forEach((doc) => {
+            chats.push({
+              id: doc.id,
+              data: doc.data(),
+            });
+            setUserChat(chats);
+          });
+        });
+      } else {
+        setUser(null);
+      }
+    });
+  }, [userChat, user]);
+
+  if (!user) return;
+
   return (
     <>
       <Head>
@@ -15,7 +55,7 @@ export default function Home() {
       <main className="min-h-[100vh] flex flex-col">
         <div className="bg-[#1b9447] h-[100px] w-full absolute top-0 left-0 " />
         <div className="h-[calc(100vh-40px)] bg-[rgb(227,230,230)] z-50 mt-[20px] mx-4 md:mx-8 flex">
-          <Sidebar />
+          <Sidebar userChat={userChat} user={user} />
           {!currentChat ? <Chat /> : <Messages />}
         </div>
         <div className="bg-[rgb(211,208,208)] h-[100px] w-full absolute bottom-0 left-0 " />
