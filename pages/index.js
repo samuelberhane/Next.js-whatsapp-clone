@@ -23,7 +23,7 @@ export default function Home() {
         setUser(user);
         const q = query(
           collection(db, "chats"),
-          where("users", "array-contains", user.email),
+          where("users", "array-contains", user?.email),
           orderBy("timestamp", "desc")
         );
         let chats = [];

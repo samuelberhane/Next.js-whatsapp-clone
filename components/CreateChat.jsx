@@ -48,7 +48,7 @@ const CreateChat = () => {
         await addDoc(collection(db, "chats"), {
           users: [user, email],
           timestamp: serverTimestamp(),
-          FriendImage: friendProfile,
+          usersImage: [auth?.currentUser?.photoURL, friendProfile],
         });
       }
     }

@@ -19,7 +19,6 @@ const Login = () => {
       });
       axios.post("/api/login");
       router.push("/");
-      console.log(user);
     });
   };
 
