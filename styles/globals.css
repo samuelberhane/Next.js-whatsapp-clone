@@ -1,3 +1,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.leftText,
+rightText {
+  position: relative;
+  background: white;
+  text-align: text;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  float: text;
+}
+
+.leftText::before {
+  content: "";
+  position: absolute;
+  visibility: visible;
+  top: -1px;
+  left: -10px;
+  border: 10px solid transparent;
+  border-top: 10px solid #ccc;
+}
+
+.rightText::before {
+  content: "";
+  position: absolute;
+  visibility: visible;
+  top: -1px;
+  right: -10px;
+  border: 10px solid transparent;
+  border-top: 10px solid #ccc;
+}
+
+.leftText::after {
+  content: "";
+  position: absolute;
+  visibility: visible;
+  top: 0px;
+  left: -8px;
+  border: 10px solid transparent;
+  border-top: 10px solid white;
+  clear: both;
+}
+
+.rightText::after {
+  content: "";
+  position: absolute;
+  visibility: visible;
+  top: 0px;
+  right: -8px;
+  border: 10px solid transparent;
+  border-top: 10px solid #69ee8b;
+  clear: both;
+}
