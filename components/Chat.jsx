@@ -1,6 +1,6 @@
 const Chat = () => {
   return (
-    <section className="flex flex-col items-center gap-5 w-full mt-24">
+    <section className="flex flex-col items-center gap-5 mt-24 w-[70%]">
       <img src="/image/home.png" alt="homeImage" className="w-[250px]" />
       <h1 className="text-gray-500 font-light text-3xl md:text-4xl">
         WhatsApp Web

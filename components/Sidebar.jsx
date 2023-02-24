@@ -4,9 +4,9 @@ import { CgSortAz } from "react-icons/cg";
 
 const Sidebar = () => {
   return (
-    <section className="w-[35%] bg-white border-r-2 border-gray-300">
+    <section className="w-[30%] bg-white border-r-2 border-gray-300">
       {/* Top Sidebar */}
-      <div className="flex justify-between items-center bg-[rgb(227,230,230)] px-4 py-3 border-b-2 border-white">
+      <div className="flex justify-between items-center bg-[rgb(227,230,230)] h-[65px] px-4 border-b-2 border-white">
         <img
           src="/image/user.jpg"
           alt="userImage"
@@ -17,7 +17,6 @@ const Sidebar = () => {
           <BsThreeDotsVertical />
         </div>
       </div>
-
       {/* Search Sidebar */}
       <div className="flex p-2 gap-2 border-b-[1px] border-gray-300 items-center">
         <div className="relative h-[36px] flex-grow rounded-lg">
@@ -29,6 +28,37 @@ const Sidebar = () => {
           <BiSearchAlt2 className="absolute top-[50%] translate-y-[-50%] left-2" />
         </div>
         <CgSortAz className="text-3xl text-gray-400" />
+      </div>
+      {/* Chat Friends */}
+      <div className="px-4 pt-2">
+        <div className="hover:bg-gray-50 cursor-pointer flex gap-2 items-center hover:border-[1px] rounded-md shadow-sm">
+          <img
+            src="/image/user.jpg"
+            alt="userImage"
+            className="w-[40px] h-[40px] rounded-full"
+          />
+          <p className="text-lg font-light">test@gmail.com</p>
+        </div>
+      </div>
+      <div className="px-4 pt-2">
+        <div className="hover:bg-gray-50 cursor-pointer flex gap-2 items-center hover:border-[1px] rounded-md shadow-sm">
+          <img
+            src="/image/user.jpg"
+            alt="userImage"
+            className="w-[40px] h-[40px] rounded-full"
+          />
+          <p className="text-lg font-light">test@gmail.com</p>
+        </div>
+      </div>
+      <div className="px-4 pt-2">
+        <div className="hover:bg-gray-50 cursor-pointer flex gap-2 items-center hover:border-[1px] rounded-md shadow-sm">
+          <img
+            src="/image/user.jpg"
+            alt="userImage"
+            className="w-[40px] h-[40px] rounded-full"
+          />
+          <p className="text-lg font-light">test@gmail.com</p>
+        </div>
       </div>
     </section>
   );
