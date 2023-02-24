@@ -10,9 +10,10 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { useGlobalChatContext } from "@/context/ChatContext";
 
 export default function Home() {
-  const [currentChat, setCurrentChat] = useState(1);
+  const { currentChat } = useGlobalChatContext();
   const [user, setUser] = useState(null);
   const [userChat, setUserChat] = useState([]);
 

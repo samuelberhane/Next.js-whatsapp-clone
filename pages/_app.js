@@ -1,5 +1,10 @@
-import '@/styles/globals.css'
+import "@/styles/globals.css";
+import { ChatContextProvider } from "@/context/ChatContext";
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <ChatContextProvider>
+      <Component {...pageProps} />
+    </ChatContextProvider>
+  );
 }

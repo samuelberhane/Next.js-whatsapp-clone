@@ -39,7 +39,6 @@ const CreateChat = () => {
         const getFriendProfile = await getDoc(doc(db, "users", email));
         let friendProfile;
         if (getFriendProfile.data()) {
-          console.log(getFriendProfile.data());
           friendProfile = getFriendProfile.data().userImage;
         } else {
           friendProfile = "/image/user.jpg";
