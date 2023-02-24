@@ -1,37 +1,15 @@
+import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { BsEmojiSmile } from "react-icons/bs";
 import { ImAttachment } from "react-icons/im";
 import { IoIosSend } from "react-icons/io";
-import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import axios from "axios";
 import { auth } from "@/firebase/config";
-
+import { useRouter } from "next/router";
 const Messages = () => {
-  const login = () => {
-    const provider = new GoogleAuthProvider();
-
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        console.log("user", user);
-        // ...
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
-  };
+  const router = useRouter();
+  const [openLogout, setOpenLogout] = useState(false);
   return (
     <section className="w-full flex flex-col">
       {/* Chat Detail */}
@@ -41,11 +19,27 @@ const Messages = () => {
             src="/image/user.jpg"
             alt="userImage"
             className="w-[40px] h-[40px] rounded-full"
-            onClick={() => signOut(auth)}
           />
           <p>User Name</p>
         </div>
-        <BsThreeDotsVertical onClick={login} />
+        <div className="relative">
+          <BsThreeDotsVertical
+            onClick={() => setOpenLogout((prev) => !prev)}
+            className="cursor-pointer"
+          />
+          {openLogout && (
+            <button
+              className="absolute -top-2 right-5 bg-black text-white w-[100px] py-2 rounded"
+              onClick={() => {
+                signOut(auth);
+                axios.post("/api/logout");
+                router.push("/auth/login");
+              }}
+            >
+              Logout
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Message Texts */}

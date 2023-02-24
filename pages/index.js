@@ -23,3 +23,17 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps = async (context) => {
+  if (!context.req?.cookies?.user) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};
