@@ -10,16 +10,20 @@ const Login = () => {
   const router = useRouter();
   const login = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).then(async (result) => {
-      const user = result.user;
-      await setDoc(doc(db, "users", user?.email), {
-        name: user?.displayName,
-        userImage: user?.photoURL,
-        id: user?.uid,
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        const user = result.user;
+        await setDoc(doc(db, "users", user?.email), {
+          name: user?.displayName,
+          userImage: user?.photoURL,
+          id: user?.uid,
+        });
+        axios.post("/api/login");
+        router.push("/");
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      axios.post("/api/login");
-      router.push("/");
-    });
   };
 
   return (

@@ -48,6 +48,8 @@ const Messages = ({ user }) => {
     scrollMessage.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  console.log("messages", messages);
+
   return (
     <section className="lg:w-[70%] w-full flex flex-col h-full">
       {/* Chat Detail */}
@@ -55,24 +57,44 @@ const Messages = ({ user }) => {
       <ChatInfo />
 
       {/* Message Texts */}
-      <div className="bg-[url('/image/background.jpg')] h-[calc(100vh-130px)] flex flex-col px-6 py-3 overflow-y-scroll">
+      <div className="bg-[url('/image/background.jpg')] h-[calc(100vh-130px)] flex flex-col px-4 lg:px-6 py-3 overflow-y-scroll">
         {messages?.map((msg, index) => (
-          <div
-            ref={scrollMessage}
-            key={index}
-            className={`flex mb-2 ${
-              msg?.data.sender === user?.email ? "justify-end" : "justify-start"
-            } `}
-          >
-            <p
-              className={`px-6 py-2 relative rounded-lg max-w-[300px] text-sm ${
-                msg?.data.sender === user?.email
-                  ? "rightText bg-[#8deaa4]"
-                  : "leftText bg-white"
-              }`}
-            >
-              {msg?.data?.message}
-            </p>
+          <div key={index}>
+            {msg?.data?.imageMessage && (
+              <div
+                className={`flex mb-2 ${
+                  msg?.data.sender === user?.email
+                    ? "justify-end"
+                    : "justify-start"
+                }`}
+              >
+                <img
+                  src={msg?.data?.imageMessage}
+                  alt="messageImage"
+                  className="w-[250px] h-[250px] rounded-md"
+                />
+              </div>
+            )}
+            {msg?.data?.message && (
+              <div
+                ref={scrollMessage}
+                className={`flex mb-2 ${
+                  msg?.data.sender === user?.email
+                    ? "justify-end"
+                    : "justify-start"
+                } `}
+              >
+                <p
+                  className={`px-6 py-2 relative rounded-lg max-w-[300px] text-sm ${
+                    msg?.data.sender === user?.email
+                      ? "rightText bg-[#8deaa4]"
+                      : "leftText bg-white"
+                  }`}
+                >
+                  {msg?.data?.message}
+                </p>
+              </div>
+            )}
           </div>
         ))}
       </div>
