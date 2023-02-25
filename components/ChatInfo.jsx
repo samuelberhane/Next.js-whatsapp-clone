@@ -8,7 +8,7 @@ import { useGlobalChatContext } from "@/context/ChatContext";
 
 const ChatInfo = () => {
   const router = useRouter();
-  const { currentChat } = useGlobalChatContext();
+  const { currentChat, dispatch } = useGlobalChatContext();
   const [openLogout, setOpenLogout] = useState(false);
 
   return (
@@ -21,12 +21,12 @@ const ChatInfo = () => {
         />
         <p>{currentChat.friendEmail}</p>
       </div>
-      <div className="relative">
+      <div className="relative cursor-pointer hover:text-gray-700 hover:scale-90">
         <BsThreeDotsVertical
-          onClick={() => setOpenLogout((prev) => !prev)}
-          className="cursor-pointer"
+          onClick={() => dispatch({ type: "HANDLE_MENU_CHANGE" })}
+          className="cursor-pointer text-xl"
         />
-        {openLogout && (
+        {/* {openLogout && (
           <button
             className="absolute -top-2 right-5 bg-black text-white w-[100px] py-2 rounded"
             onClick={() => {
@@ -37,7 +37,7 @@ const ChatInfo = () => {
           >
             Logout
           </button>
-        )}
+        )} */}
       </div>
     </div>
   );

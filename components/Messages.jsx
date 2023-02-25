@@ -48,12 +48,9 @@ const Messages = ({ user }) => {
     scrollMessage.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  console.log("messages", messages);
-
   return (
     <section className="lg:w-[70%] w-full flex flex-col h-full">
       {/* Chat Detail */}
-
       <ChatInfo />
 
       {/* Message Texts */}

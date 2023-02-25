@@ -8,7 +8,7 @@ const SearchBar = () => {
         <input
           type="text"
           className="w-full h-full pl-12 pr-8 rounded-lg bg-[rgb(227,230,230)]"
-          placeholder="Search or start new chat"
+          placeholder="Search new chat"
         />
         <BiSearchAlt2 className="absolute top-[50%] translate-y-[-50%] left-2" />
       </div>

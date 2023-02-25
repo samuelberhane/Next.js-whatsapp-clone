@@ -6,14 +6,18 @@ const Sidebar = ({ userChat, user }) => {
     <section className="lg:w-[30%] hidden border-r-2 border-gray-300 h-full lg:flex flex-col">
       <div>
         <div className="flex justify-between items-center bg-[rgb(227,230,230)] h-[65px] px-4 border-b-2 border-white">
-          <img
-            src={user?.photoURL}
-            alt="userImage"
-            className="w-[40px] h-[40px] rounded-full"
-          />
+          <div className="flex items-center gap-2">
+            <img
+              src={user?.photoURL}
+              alt="userImage"
+              className="w-[40px] h-[40px] rounded-full"
+            />
+            <p>{user?.displayName}</p>
+          </div>
+
           <div className="flex text-gray-500 items-center gap-4 text-xl">
-            <BsFillChatLeftTextFill />
-            <BsThreeDotsVertical />
+            <BsFillChatLeftTextFill className="cursor-pointer hover:text-gray-600 hover:scale-90" />
+            <BsThreeDotsVertical className="cursor-pointer hover:text-gray-600 hover:scale-90" />
           </div>
         </div>
         {/* Search Sidebar */}

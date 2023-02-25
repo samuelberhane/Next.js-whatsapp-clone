@@ -11,9 +11,10 @@ import {
   where,
 } from "firebase/firestore";
 import { useGlobalChatContext } from "@/context/ChatContext";
+import MenuSidebar from "@/components/MenuSidebar";
 
 export default function Home() {
-  const { currentChat } = useGlobalChatContext();
+  const { currentChat, openMenubar } = useGlobalChatContext();
   const [user, setUser] = useState(null);
   const [userChat, setUserChat] = useState([]);
 
@@ -53,14 +54,23 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="h-[100vh] flex flex-col">
-        <div className="bg-[#1b9447] h-[100px] w-full absolute top-0 left-0 " />
-        <div className="h-[calc(100vh-40px)] bg-[rgb(227,230,230)] z-50 mt-[20px] mx-4 md:mx-8 flex">
-          <Sidebar userChat={userChat} user={user} />
-          {!currentChat ? <Chat /> : <Messages user={user} />}
+      <>
+        <main className="h-[100vh] flex flex-col">
+          <div className="bg-[#1b9447] h-[100px] w-full absolute top-0 left-0 " />
+          <div className="h-[calc(100vh-40px)] bg-[rgb(227,230,230)] z-10 mt-[20px] mx-4 md:mx-8 flex">
+            <Sidebar userChat={userChat} user={user} />
+            {!currentChat ? <Chat /> : <Messages user={user} />}
+          </div>
+          <div className="bg-[rgb(207,241,230)] h-[100px] w-full absolute bottom-0 left-0 " />
+        </main>
+        <div
+          className={`lg:hidden absolute top-0 bottom-0 z-50 bg-white w-[280px] ${
+            openMenubar ? "left-0" : "-left-[999px]"
+          } duration-[1.5s] ease-in-out`}
+        >
+          <MenuSidebar userChat={userChat} user={user} />
         </div>
-        <div className="bg-[rgb(207,241,230)] h-[100px] w-full absolute bottom-0 left-0 " />
-      </main>
+      </>
     </>
   );
 }

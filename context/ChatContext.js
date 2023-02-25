@@ -10,6 +10,12 @@ const chatReducer = (state, action) => {
         ...state,
         currentChat: payload,
       };
+    case "HANDLE_MENU_CHANGE":
+      return {
+        ...state,
+        openMenubar: !state.openMenubar,
+      };
+
     default:
       return state;
   }
@@ -18,6 +24,7 @@ const chatReducer = (state, action) => {
 const initialState = {
   currentChat: null,
   messages: [],
+  openMenubar: false,
 };
 
 const ChatContextProvider = ({ children }) => {
