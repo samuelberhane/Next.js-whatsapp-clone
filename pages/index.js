@@ -59,7 +59,7 @@ export default function Home() {
           <Sidebar userChat={userChat} user={user} />
           {!currentChat ? <Chat /> : <Messages user={user} />}
         </div>
-        <div className="bg-[rgb(211,208,208)] h-[100px] w-full absolute bottom-0 left-0 " />
+        <div className="bg-[rgb(207,241,230)] h-[100px] w-full absolute bottom-0 left-0 " />
       </main>
     </>
   );

@@ -3,7 +3,7 @@ import { CreateChat, Friends, SearchBar } from ".";
 
 const Sidebar = ({ userChat, user }) => {
   return (
-    <section className="w-[30%] border-r-2 border-gray-300 h-full flex flex-col">
+    <section className="lg:w-[30%] hidden border-r-2 border-gray-300 h-full lg:flex flex-col">
       <div>
         <div className="flex justify-between items-center bg-[rgb(227,230,230)] h-[65px] px-4 border-b-2 border-white">
           <img

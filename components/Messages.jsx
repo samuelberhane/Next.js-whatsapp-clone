@@ -49,7 +49,7 @@ const Messages = ({ user }) => {
   }, [messages]);
 
   return (
-    <section className="w-full flex flex-col h-full">
+    <section className="lg:w-[70%] w-full flex flex-col h-full">
       {/* Chat Detail */}
 
       <ChatInfo />
