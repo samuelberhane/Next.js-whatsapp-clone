@@ -12,7 +12,7 @@ const ChatInfo = () => {
   const [openLogout, setOpenLogout] = useState(false);
 
   return (
-    <div className="h-[65px] flex justify-between items-center px-4">
+    <div className="h-[70px] flex justify-between items-center px-4">
       <div className="flex items-center gap-2">
         <img
           src={currentChat.friendProfile}

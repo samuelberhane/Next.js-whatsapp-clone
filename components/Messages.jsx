@@ -1,27 +1,86 @@
+import { useEffect, useRef, useState } from "react";
 import { ChatInfo, MessageForm } from ".";
+import { useGlobalChatContext } from "@/context/ChatContext";
+import { db } from "@/firebase/config";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 
-const Messages = () => {
+const Messages = ({ user }) => {
+  const scrollMessage = useRef();
+  const { currentChat } = useGlobalChatContext();
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      const q = query(
+        collection(db, "messages"),
+        where("users", "array-contains", user?.email),
+        orderBy("timestamp", "asc")
+      );
+      let messages = [];
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        snapshot.forEach((doc) => {
+          messages.push({
+            id: doc.id,
+            data: doc.data(),
+          });
+        });
+        const uniqueMessage = [];
+        messages
+          .filter((msg) => msg.data.users.includes(currentChat?.friendEmail))
+          .map((msg) => {
+            const duplicate = uniqueMessage.find((obj) => obj.id === msg.id);
+            if (!duplicate) {
+              uniqueMessage.push(msg);
+            }
+          });
+        setMessages(uniqueMessage);
+      });
+    }
+  }, [currentChat]);
+
+  useEffect(() => {
+    scrollMessage.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
-    <section className="w-full flex flex-col">
+    <section className="w-full flex flex-col h-full">
       {/* Chat Detail */}
+
       <ChatInfo />
 
       {/* Message Texts */}
-      <div className="bg-[url('/image/background.jpg')] flex-grow flex flex-col px-6 py-3">
-        <div className="flex justify-start">
-          <p className="px-6 py-4 rounded-2xl bg-white max-w-[300px] text-sm leftText">
-            Lorem ipsum dolor sit amet,
-          </p>
-        </div>
-        <div className="flex justify-end">
-          <p className="px-6 py-4 rounded-2xl bg-[#69ee8b]  max-w-[300px] text-sm relative rightText">
-            Lorem ipsum dolor sit amet,
-          </p>
-        </div>
+      <div className="bg-[url('/image/background.jpg')] h-[calc(100vh-130px)] flex flex-col px-6 py-3 overflow-y-scroll">
+        {messages?.map((msg, index) => (
+          <div
+            ref={scrollMessage}
+            key={index}
+            className={`flex mb-2 ${
+              msg?.data.sender === user?.email ? "justify-end" : "justify-start"
+            } `}
+          >
+            <p
+              className={`px-6 py-2 relative rounded-lg max-w-[300px] text-sm ${
+                msg?.data.sender === user?.email
+                  ? "rightText bg-[#8deaa4]"
+                  : "leftText bg-white"
+              }`}
+            >
+              {msg?.data?.message}
+            </p>
+          </div>
+        ))}
       </div>
 
       {/* Send Message Form */}
-      <MessageForm />
+      <div className="h-[80px]">
+        <MessageForm user={user} />
+      </div>
     </section>
   );
 };
